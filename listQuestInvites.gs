@@ -1,5 +1,5 @@
 /**
- * List Quest Invites v0.1.0 (beta) by @bumbleshoot
+ * List Quest Invites v0.1.1 (beta) by @bumbleshoot
  *
  * See GitHub page for info & setup instructions:
  * https://github.com/bumbleshoot/list-quest-invites
@@ -239,30 +239,6 @@ function getQuestData() {
     } else if (rewardType == "pet" || rewardType == "mount") {
       questInfo.type = "Pet";
       otherQuests[quest.text] = questInfo;
-    }
-  }
-
-  // compare each pair of egg quests
-  let eggQuestsEntries = Object.entries(eggQuests);
-  for (let i=0; i<eggQuestsEntries.length; i++) {
-    for (let j=i+1; j<eggQuestsEntries.length; j++) {
-
-      // if rewards are the same
-      if (eggQuestsEntries[i][1].rewards.map(x => JSON.stringify(x)).sort((a, b) => a.localeCompare(b)).join(",") === eggQuestsEntries[j][1].rewards.map(x => JSON.stringify(x)).sort((a, b) => a.localeCompare(b)).join(",")) {
-
-        // combine quest data & save to quest list
-        eggQuests[eggQuestsEntries[i][0] + " OR " + eggQuestsEntries[j][0]] = {
-          rewards: eggQuestsEntries[i][1].rewards,
-          type: "Egg"
-        }
-
-        // delete individual quests
-        delete eggQuests[eggQuestsEntries[i][0]];
-        delete eggQuests[eggQuestsEntries[j][0]];
-        eggQuestsEntries.splice(j, 1);
-        eggQuestsEntries.splice(i, 1);
-        j = i;
-      }
     }
   }
 
