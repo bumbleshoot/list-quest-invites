@@ -1,3 +1,5 @@
+***List Quest Invites is currently in beta. There are still some edge cases that haven't been tested yet, so it may not work perfectly for you. If you're not okay with this, best to wait until Version 1 is released! If you get an error while running this script or the output is not what you expect, please let me know!***
+
 ## Summary
 Gathers Habitica quest invite emails from the user's Gmail account and lists them in a Google Sheet, with columns for quest name, date/time invited, username, quest type, and email subject.
 
