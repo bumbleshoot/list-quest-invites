@@ -1,5 +1,5 @@
 /**
- * List Quest Invites v0.1.1 (beta) by @bumbleshoot
+ * List Quest Invites v0.2.0 (beta) by @bumbleshoot
  *
  * See GitHub page for info & setup instructions:
  * https://github.com/bumbleshoot/list-quest-invites
@@ -11,7 +11,6 @@ const API_TOKEN = "";
 const LABEL_NAME = ""; // required
 const START_DATE = ""; // yyyy-mm-dd, leave blank to include all dates
 const END_DATE = ""; // yyyy-mm-dd, leave blank to include all dates
-const SUBJECT_STARTS_WITH = ""; // leave blank to include all subjects
 const QUEST_INVITES_SPREADSHEET_URL = "";
 const QUEST_INVITES_SPREADSHEET_TAB_NAME = "Sheet1";
 
@@ -90,8 +89,8 @@ function listQuestInvites() {
       // for each message in thread
       for (message of thread.getMessages()) {
 
-        // if message received after START_DATE & before END_DATE & subject begins with SUBJECT_STARTS_WITH
-        if (message.getDate().getTime() >= startDate && message.getDate().getTime() < endDate && message.getSubject().startsWith(SUBJECT_STARTS_WITH)) {
+        // if message received after START_DATE & before END_DATE & is quest invite
+        if (message.getDate().getTime() >= startDate && message.getDate().getTime() < endDate && (message.getSubject().match(/Help [^ ]+ battle the Boss of ".+" \(and Bad Habits\)!/) !== null || message.getSubject().match(/Help [^ ]+ Complete the .+ Quest!/) !== null)) {
 
           // get quest name
           let questName = message.getSubject().match(/"(.+)"/);
