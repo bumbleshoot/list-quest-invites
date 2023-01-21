@@ -1,5 +1,5 @@
 /**
- * List Quest Invites v0.2.0 (beta) by @bumbleshoot
+ * List Quest Invites v0.2.1 (beta) by @bumbleshoot
  *
  * See GitHub page for info & setup instructions:
  * https://github.com/bumbleshoot/list-quest-invites
@@ -299,6 +299,10 @@ function fetch(url, params) {
     // if success, return response
     if (response.getResponseCode() < 300 || (response.getResponseCode() === 404 && (url === "https://habitica.com/api/v3/groups/party" || url.startsWith("https://habitica.com/api/v3/groups/party/members")))) {
       return response;
+
+    // if rate limited due to running multiple scripts, try again
+    } else if (response.getResponseCode() === 429) {
+      i--;
 
     // if 3xx or 4xx or failed 3 times, throw exception
     } else if (response.getResponseCode() < 500 || i >= 2) {
