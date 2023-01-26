@@ -1,5 +1,5 @@
 /**
- * List Quest Invites v0.2.1 (beta) by @bumbleshoot
+ * List Quest Invites v0.2.2 (beta) by @bumbleshoot
  *
  * See GitHub page for info & setup instructions:
  * https://github.com/bumbleshoot/list-quest-invites
@@ -84,10 +84,10 @@ function listQuestInvites() {
   while (batch.length > 0) {
 
     // for each thread in batch
-    for (thread of batch) {
+    for (let thread of batch) {
 
       // for each message in thread
-      for (message of thread.getMessages()) {
+      for (let message of thread.getMessages()) {
 
         // if message received after START_DATE & before END_DATE & is quest invite
         if (message.getDate().getTime() >= startDate && message.getDate().getTime() < endDate && (message.getSubject().match(/Help [^ ]+ battle the Boss of ".+" \(and Bad Habits\)!/) !== null || message.getSubject().match(/Help [^ ]+ Complete the .+ Quest!/) !== null)) {
@@ -149,15 +149,15 @@ function getQuestData() {
 
   // get lists of premium eggs, premium hatching potions & wacky hatching potions
   let premiumEggs = [];
-  for (egg of Object.values(getContent().questEggs)) {
+  for (let egg of Object.values(getContent().questEggs)) {
     premiumEggs.push(egg.key);
   }
   let premiumHatchingPotions = [];
-  for (potion of Object.values(content.premiumHatchingPotions)) {
+  for (let potion of Object.values(content.premiumHatchingPotions)) {
     premiumHatchingPotions.push(potion.key);
   }
   let wackyHatchingPotions = [];
-  for (potion of Object.values(content.wackyHatchingPotions)) {
+  for (let potion of Object.values(content.wackyHatchingPotions)) {
     wackyHatchingPotions.push(potion.key);
   }
 
@@ -166,7 +166,7 @@ function getQuestData() {
   let otherQuests = {};
 
   // for each quest
-  for (quest of Object.values(content.quests)) {
+  for (let quest of Object.values(content.quests)) {
 
     // if world boss, skip it
     if (quest.category == "world") {
@@ -177,7 +177,7 @@ function getQuestData() {
     let rewards = [];
     if (typeof quest.drop.items !== "undefined") {
 
-      for (drop of quest.drop.items) {
+      for (let drop of quest.drop.items) {
 
         let rewardName = drop.text;
         let rewardType = "";
