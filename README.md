@@ -3,6 +3,8 @@
 ## Summary
 Gathers Habitica quest invite emails from the user's Gmail account and lists them in a Google Sheet, with columns for quest name, date/time invited, username, quest type, and email subject.
 
+[<img title="Quest Invites spreadsheet" src="https://github.com/bumbleshoot/list-quest-invites/blob/main/list-quest-invites.png?raw=true" width="250">](https://github.com/bumbleshoot/list-quest-invites/blob/main/list-quest-invites.png?raw=true)
+
 ## Setup Instructions
 You need to use a desktop computer for this. It will not work on a phone or tablet!
 1. Click [here](https://script.google.com/d/1srhmJoKC1llImave5zCZ7C_cxgk-2ne3knkip1mbRw7lSTNcb76Gr_LY/edit?usp=sharing) to go to the List Quest Invites script. If you're not already signed into your Google account, you will be asked to sign in.
