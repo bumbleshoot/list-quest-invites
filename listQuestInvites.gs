@@ -9,8 +9,8 @@ const USER_ID = "";
 const API_TOKEN = "";
 
 const LABEL_NAME = ""; // required
-const START_DATE = ""; // yyyy-mm-dd, leave blank to include all dates
-const END_DATE = ""; // yyyy-mm-dd, leave blank to include all dates
+const START_DATE = ""; // yyyy-mm-dd, leave blank for no start date
+const END_DATE = ""; // yyyy-mm-dd, leave blank for no end date
 const QUEST_INVITES_SPREADSHEET_URL = "";
 const QUEST_INVITES_SPREADSHEET_TAB_NAME = "Sheet1";
 

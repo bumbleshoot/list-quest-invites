@@ -6,7 +6,7 @@ Gathers Habitica quest invite emails from the user's Gmail account and lists the
 [<img title="Quest Invites spreadsheet" src="https://github.com/bumbleshoot/list-quest-invites/blob/main/list-quest-invites.png?raw=true" width="250">](https://github.com/bumbleshoot/list-quest-invites/blob/main/list-quest-invites.png?raw=true)
 
 ## Setup Instructions
-You need to use a desktop computer for this. It will not work on a phone or tablet!
+It is highly recommended that you use a desktop computer for this, as some of the steps don't work well on mobile.
 1. Click [here](https://script.google.com/d/1srhmJoKC1llImave5zCZ7C_cxgk-2ne3knkip1mbRw7lSTNcb76Gr_LY/edit?usp=sharing) to go to the List Quest Invites script. If you're not already signed into your Google account, you will be asked to sign in.
 2. In the main menu on the left, click on "Overview" (looks like a lowercase letter i inside a circle).
 3. Click the "Make a copy" button (looks like two pages of paper).
@@ -20,7 +20,7 @@ You need to use a desktop computer for this. It will not work on a phone or tabl
 11. Click the "Run" button near the top of the page. Wait for it to say "Execution completed".
 
 ## Updating the Script
-You need to use a desktop computer for this. It will not work on a phone or tablet!
+It is highly recommended that you use a desktop computer for this, as some of the steps don't work well on mobile.
 1. Copy & paste your settings (`const`s) into a text editor so you can reference them while setting up the new version.
 2. In the main menu on the left, click on "Overview" (looks like a lowercase letter i inside a circle).
 3. Click the "Remove project" button (looks like a trash can).
