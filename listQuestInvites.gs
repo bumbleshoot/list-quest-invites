@@ -1,5 +1,5 @@
 /**
- * List Quest Invites v0.2.5 (beta) by @bumbleshoot
+ * List Quest Invites v0.2.6 (beta) by @bumbleshoot
  *
  * See GitHub page for info & setup instructions:
  * https://github.com/bumbleshoot/list-quest-invites
@@ -308,21 +308,22 @@ function fetch(url, params) {
 }
 
 /**
- * getContent()
+ * getContent(updated)
  * 
  * Fetches content data from the Habitica API if it hasn't already 
- * been fetched during this execution.
+ * been fetched during this execution, or if updated is set to 
+ * true.
  */
 let content;
-function getContent() {
-  if (typeof content === "undefined") {
+function getContent(updated) {
+  if (updated || typeof content === "undefined") {
     for (let i=0; i<3; i++) {
       content = fetch("https://habitica.com/api/v3/content", GET_PARAMS);
       try {
         content = JSON.parse(content).data;
         break;
       } catch (e) {
-        if (i < 2 && e.stack.includes("Unterminated string in JSON")) {
+        if (i < 2 && (e.stack.includes("Unterminated string in JSON") || e.stack.includes("Expected ',' or '}' after property value in JSON at position"))) {
           continue;
         } else {
           throw e;
