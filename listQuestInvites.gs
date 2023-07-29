@@ -1,5 +1,5 @@
 /**
- * List Quest Invites v0.2.9 (beta) by @bumbleshoot
+ * List Quest Invites v0.2.10 (beta) by @bumbleshoot
  *
  * See GitHub page for info & setup instructions:
  * https://github.com/bumbleshoot/list-quest-invites
@@ -99,37 +99,30 @@ function listQuestInvites() {
         }
         timestamp = timestamp.toLocaleString("en-US", { month: "short", day: "numeric", year: "numeric", hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" }).replaceAll(",", "").replaceAll(" 24:", " 00:").replace(" AM", "").replace(" PM", "") + " GMT" + timezoneOffset;
 
-        // if message received after START_DATE & before END_DATE & is quest invite
-        if (message.getDate().getTime() >= startDate && message.getDate().getTime() < endDate) {
-          if (message.getSubject().match(/Help [^ ]+ battle the Boss of ".+" \(and Bad Habits\)!/) !== null || message.getSubject().match(/Help [^ ]+ Complete the .+ Quest!/) !== null) {
-
-            // get quest name
-            let questName = message.getSubject().match(/"(.+)"/);
-            if (questName === null) {
-              questName = message.getSubject().match(/Complete the (.+) Quest!/);
-            }
-            if (questName === null) {
-              throw new Error("Invalid email subject: " + message.getSubject());
-            }
-            questName = questName[1];
-            questName = questName.replace("Nudibranches", "Nudibranchs");
-
-            // get username
-            let username = message.getSubject().match(/Help ([^\s]+)/)[1];
-
-            // print to spreadsheet
-            sheet.getRange(rowCounter, 1, 1, headings.length).setValues([[rowCounter-1, questName, timestamp, username, quests[questName.toLowerCase()].type, message.getSubject()]]);
-            rowCounter++;
-
-          // if not a quest invite
-          } else {
-            console.log("Skipping email \"" + message.getSubject() + "\" received " + timestamp + " because it does not appear to be a valid Habitica quest invite email");
-          }
-
-        // if not received after START_DATE & before END_DATE
-        } else {
+        // if not after START_DATE and before END_DATE, skip
+        if (message.getDate().getTime() < startDate || message.getDate().getTime() >= endDate) {
           console.log("Skipping email \"" + message.getSubject() + "\" received " + timestamp + " because it was not received after START_DATE and before END_DATE");
+          continue;
         }
+
+        // if not a valid quest invite email, skip
+        let match = message.getSubject().match(/Help (.+) battle the Boss of "(.+)" \(and Bad Habits\)!/)
+        if (match === null) {
+          match = message.getSubject().match(/Help (.+) Complete the (.+) Quest!/)
+          if (match === null) {
+            console.log("Skipping email \"" + message.getSubject() + "\" received " + timestamp + " because it does not appear to be a valid Habitica quest invite email");
+            continue;
+          }
+        }
+
+        // get quest name & username
+        let username = match[1];
+        let questName = match[2];
+        questName = questName.replace("Nudibranches", "Nudibranchs");
+
+        // print to spreadsheet
+        sheet.getRange(rowCounter, 1, 1, headings.length).setValues([[rowCounter-1, questName, timestamp, username, quests[questName.toLowerCase()].type, message.getSubject()]]);
+        rowCounter++;
       }
     }
 
