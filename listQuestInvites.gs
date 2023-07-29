@@ -1,5 +1,5 @@
 /**
- * List Quest Invites v0.2.8 (beta) by @bumbleshoot
+ * List Quest Invites v0.2.9 (beta) by @bumbleshoot
  *
  * See GitHub page for info & setup instructions:
  * https://github.com/bumbleshoot/list-quest-invites
@@ -89,39 +89,47 @@ function listQuestInvites() {
       // for each message in thread
       for (let message of thread.getMessages()) {
 
-        // if message received after START_DATE & before END_DATE & is quest invite
-        if (message.getDate().getTime() >= startDate && message.getDate().getTime() < endDate && (message.getSubject().match(/Help [^ ]+ battle the Boss of ".+" \(and Bad Habits\)!/) !== null || message.getSubject().match(/Help [^ ]+ Complete the .+ Quest!/) !== null)) {
-
-          // get quest name
-          let questName = message.getSubject().match(/"(.+)"/);
-          if (questName === null) {
-            questName = message.getSubject().match(/Complete the (.+) Quest!/);
-          }
-          if (questName === null) {
-            throw new Error("Invalid email subject: " + message.getSubject());
-          }
-          questName = questName[1];
-          questName = questName.replace("Nudibranches", "Nudibranchs");
-
-          // get date
-          let month = message.getDate().getMonth() + 1;
-          if (month < 10) {
-            month = "0" + month;
-          }
-          let date = message.getDate().getDate();
-          if (date < 10) {
-            date = "0" + date;
-          }
-          let timestamp = message.getDate().getFullYear() + "/" + month + "/" + date + " " + message.getDate().getHours() + ":" + message.getDate().getMinutes() + ":" + message.getDate().getSeconds();
-
-          // get username
-          let username = message.getSubject().match(/Help ([^\s]+)/)[1];
-
-          // print to spreadsheet
-          sheet.getRange(rowCounter, 1, 1, headings.length).setValues([[rowCounter-1, questName, timestamp, username, quests[questName.toLowerCase()].type, message.getSubject()]]);
-          rowCounter++;
+        // get timestamp
+        let timestamp = new Date(message.getDate());
+        let timezoneOffset = -timestamp.getTimezoneOffset()/60;
+        if (timezoneOffset == 0) {
+          timezoneOffset = "";
+        } else if (timezoneOffset > 0) {
+          timezoneOffset = "+" + timezoneOffset;
         }
+        timestamp = timestamp.toLocaleString("en-US", { month: "short", day: "numeric", year: "numeric", hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" }).replaceAll(",", "").replaceAll(" 24:", " 00:").replace(" AM", "").replace(" PM", "") + " GMT" + timezoneOffset;
 
+        // if message received after START_DATE & before END_DATE & is quest invite
+        if (message.getDate().getTime() >= startDate && message.getDate().getTime() < endDate) {
+          if (message.getSubject().match(/Help [^ ]+ battle the Boss of ".+" \(and Bad Habits\)!/) !== null || message.getSubject().match(/Help [^ ]+ Complete the .+ Quest!/) !== null) {
+
+            // get quest name
+            let questName = message.getSubject().match(/"(.+)"/);
+            if (questName === null) {
+              questName = message.getSubject().match(/Complete the (.+) Quest!/);
+            }
+            if (questName === null) {
+              throw new Error("Invalid email subject: " + message.getSubject());
+            }
+            questName = questName[1];
+            questName = questName.replace("Nudibranches", "Nudibranchs");
+
+            // get username
+            let username = message.getSubject().match(/Help ([^\s]+)/)[1];
+
+            // print to spreadsheet
+            sheet.getRange(rowCounter, 1, 1, headings.length).setValues([[rowCounter-1, questName, timestamp, username, quests[questName.toLowerCase()].type, message.getSubject()]]);
+            rowCounter++;
+
+          // if not a quest invite
+          } else {
+            console.log("Skipping email \"" + message.getSubject() + "\" received " + timestamp + " because it does not appear to be a valid Habitica quest invite email");
+          }
+
+        // if not received after START_DATE & before END_DATE
+        } else {
+          console.log("Skipping email \"" + message.getSubject() + "\" received " + timestamp + " because it was not received after START_DATE and before END_DATE");
+        }
       }
     }
 
