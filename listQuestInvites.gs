@@ -1,5 +1,5 @@
 /**
- * List Quest Invites v0.2.7 (beta) by @bumbleshoot
+ * List Quest Invites v0.2.8 (beta) by @bumbleshoot
  *
  * See GitHub page for info & setup instructions:
  * https://github.com/bumbleshoot/list-quest-invites
@@ -118,7 +118,7 @@ function listQuestInvites() {
           let username = message.getSubject().match(/Help ([^\s]+)/)[1];
 
           // print to spreadsheet
-          sheet.getRange(rowCounter, 1, 1, headings.length).setValues([[rowCounter-1, questName, timestamp, username, quests[questName].type, message.getSubject()]]);
+          sheet.getRange(rowCounter, 1, 1, headings.length).setValues([[rowCounter-1, questName, timestamp, username, quests[questName.toLowerCase()].type, message.getSubject()]]);
           rowCounter++;
         }
 
@@ -222,22 +222,22 @@ function getQuestData() {
     let rewardType = rewards.length > 0 ? rewards[0].type : null;
     if (quest.group == "questGroupDilatoryDistress" || quest.group == "questGroupTaskwoodsTerror" || quest.group == "questGroupStoikalmCalamity" || quest.group == "questGroupMayhemMistiflying" || quest.group == "questGroupLostMasterclasser") {
       questInfo.type = "Masterclasser";
-      otherQuests[quest.text] = questInfo;
+      otherQuests[quest.text.toLowerCase()] = questInfo;
     } else if (quest.text == "The Basi-List" || quest.text == "The Feral Dust Bunnies") {
       questInfo.type = "Achievement";
-      otherQuests[quest.text] = questInfo;
+      otherQuests[quest.text.toLowerCase()] = questInfo;
     } else if (quest.category == "unlockable") {
       questInfo.type = "Unlockable";
-      otherQuests[quest.text] = questInfo;
+      otherQuests[quest.text.toLowerCase()] = questInfo;
     } else if (rewardType == "egg") {
       questInfo.type = "Egg";
-      eggQuests[quest.text] = questInfo;
+      eggQuests[quest.text.toLowerCase()] = questInfo;
     } else if (["hatchingPotion", "wackyPotion"].includes(rewardType)) {
       questInfo.type = "Hatching Potion";
-      otherQuests[quest.text] = questInfo;
+      otherQuests[quest.text.toLowerCase()] = questInfo;
     } else if (rewardType == "pet" || rewardType == "mount") {
       questInfo.type = "Pet";
-      otherQuests[quest.text] = questInfo;
+      otherQuests[quest.text.toLowerCase()] = questInfo;
     }
   }
 
