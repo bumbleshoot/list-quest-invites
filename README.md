@@ -7,8 +7,7 @@ Gathers Habitica quest invite emails from the user's Gmail account and lists the
 
 ## Setup Instructions
 It is highly recommended that you use a desktop computer for this, as some of the steps don't work well on mobile.
-1. Click [here](https://script.google.com/d/1srhmJoKC1llImave5zCZ7C_cxgk-2ne3knkip1mbRw7lSTNcb76Gr_LY/edit?usp=sharing) to go to the List Quest Invites script. If you're not already signed into your Google account, you will be asked to sign in.
-2. In the main menu on the left, click on "Overview" (looks like a lowercase letter i inside a circle).
+1. Click [here](https://script.google.com/d/1srhmJoKC1llImave5zCZ7C_cxgk-2ne3knkip1mbRw7lSTNcb76Gr_LY?usp=sharing) to go to the List Quest Invites script. If you're not already signed into your Google account, you will be asked to sign in.
 3. Click the "Make a copy" button (looks like two pages of paper).
 4. At the top of your screen, click on "Copy of List Quest Invites". Rename it "List Quest Invites" and click the "Rename" button.
 5. Click [here](https://habitica.com/user/settings/api) to open your API Settings. Highlight and copy your User ID (it looks something like this: `35c3fb6f-fb98-4bc3-b57a-ac01137d0847`). In the List Quest Invites script, paste your User ID between the quotations where it says `const USER_ID = "";`. It should now look something like this: `const USER_ID = "35c3fb6f-fb98-4bc3-b57a-ac01137d0847";`
@@ -17,7 +16,9 @@ It is highly recommended that you use a desktop computer for this, as some of th
 8. Paste the spreadsheet URL inside the quotations where it says `const QUEST_INVITES_SPREADSHEET_URL = "";`. If you've changed the tab name for the sheet you want to print the quest invites to, paste the tab name inside the quotes where it says `const QUEST_INVITES_SPREADSHEET_TAB_NAME = "";`.
 9. Edit all the other settings (`const`s) in the script to your liking. Only edit in between the `=` and the `;`. If there are quotations `""` in between the `=` and the `;`, just type in between the quotations.
 10. Click the "Save project" button near the top of the page (looks like a floppy disk).
-11. Click the "Run" button near the top of the page. Wait for it to say "Execution completed".
+11. Click the "Run" button near the top of the page.
+12. (If this is your first time running the script) Click the "Review permissions" button and select your Google account. Click on "Advanced", then "Go to List Quest Invites (unsafe)". (Don't worry, it is safe!) Then click "Continue", then "Allow".
+13. Wait for the "Execution completed" message in the Execution Log.
 
 ## Updating the Script
 It is highly recommended that you use a desktop computer for this, as some of the steps don't work well on mobile.
